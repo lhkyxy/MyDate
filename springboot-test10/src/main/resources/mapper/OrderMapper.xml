@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mapper.OrderMapper">
+    <insert id="add">
+        insert into `order`(order_name,order_price,order_user_id)
+        values (#{order.orderName},#{order.orderPrice},#{order.orderUserId})
+    </insert>
+
+    <delete id="del">
+        delete from `order`
+        where order_id=#{orderId}
+    </delete>
+
+    <update id="update">
+        update `order` set order_name=#{order.orderName},order_price=#{order.orderPrice}
+        where order_id=#{order.orderId}
+    </update>
+
+    <resultMap id="find" type="com.example.pojo.Order">
+        <id property="orderId" column="order_id"></id>
+        <result property="orderName" column="order_name"></result>
+        <result property="orderPrice" column="order_price"></result>
+        <result property="orderUserId" column="order_user_id"></result>
+    </resultMap>
+
+    <select id="findById" resultMap="find">
+        select *
+        from `order`
+        where order_id=#{orderId}
+    </select>
+
+    <select id="findAll" resultMap="find">
+        select *
+        from `order`
+    </select>
+</mapper>
